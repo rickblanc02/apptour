@@ -12,9 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.apptour.models.TimePojo;
 import com.example.apptour.services.TimeService;
 
-//https://app-tours.herokuapp.com/
+//https://app-tours.herokuapp.com/ api
+//https://venezuelabackpackers.herokuapp.com from
 //@CrossOrigin(origins = "http://localhost:4200")
-@CrossOrigin(origins = "https://app-tours.herokuapp.com")
+@CrossOrigin(origins = "https://venezuelabackpackers.herokuapp.com")
 @RestController
 @RequestMapping("/api/v1/")
 public class TimeController {
