@@ -14,8 +14,11 @@ import com.example.apptour.services.TimeService;
 
 //https://app-tours.herokuapp.com/ api
 //https://venezuelabackpackers.herokuapp.com from
-//@CrossOrigin(origins = "http://localhost:4200")
-@CrossOrigin(origins = "https://venezuelabackpackers.herokuapp.com")
+//from react
+//https://605cb5a3cfef0f0008041892--sad-nobel-da4ea6.netlify.app/
+///@CrossOrigin(origins = "http://localhost:9000")
+@CrossOrigin(origins = "https://605cb5a3cfef0f0008041892--sad-nobel-da4ea6.netlify.app")
+//@CrossOrigin(origins = "https://venezuelabackpackers.herokuapp.com")
 @RestController
 @RequestMapping("/api/v1/")
 public class TimeController {
