@@ -17,7 +17,8 @@ import com.example.apptour.services.TimeService;
 //from react
 //https://605cb5a3cfef0f0008041892--sad-nobel-da4ea6.netlify.app/
 ///@CrossOrigin(origins = "http://localhost:9000")
-@CrossOrigin(origins = "https://605cb5a3cfef0f0008041892--sad-nobel-da4ea6.netlify.app")
+//https://sad-nobel-da4ea6.netlify.app/time
+@CrossOrigin(origins = "https://sad-nobel-da4ea6.netlify.app")
 //@CrossOrigin(origins = "https://venezuelabackpackers.herokuapp.com")
 @RestController
 @RequestMapping("/api/v1/")
