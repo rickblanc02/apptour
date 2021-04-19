@@ -28,7 +28,8 @@ import com.example.apptour.services.EmployeeService;
 import com.example.apptour.services.ProductCVS;
 import com.example.apptour.services.ProductService;
 
-@CrossOrigin(origins = "http://localhost:4200")
+//@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/v1/")
 
