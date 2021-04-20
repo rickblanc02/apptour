@@ -29,6 +29,55 @@ public class Product {
 	private Double prize;
 
 	private Timestamp date_start;
+	
+	private Double total;
+	
+	private Double gain;
+	
+	private Double iva;
+	
+	private Integer type;
+
+	
+
+	public Double getTotal() {
+		return total;
+	}
+
+
+	public void setTotal(Double total) {
+		this.total = total;
+	}
+
+
+	public Integer getType() {
+		return type;
+	}
+
+
+	public void setType(Integer type) {
+		this.type = type;
+	}
+
+
+	public Double getIva() {
+		return iva;
+	}
+
+
+	public void setIva(Double iva) {
+		this.iva = iva;
+	}
+
+
+	public Double getGain() {
+		return gain;
+	}
+
+
+	public void setGain(Double gain) {
+		this.gain = gain;
+	}
 
 
 	public Product() {

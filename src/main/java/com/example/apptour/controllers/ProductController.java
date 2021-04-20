@@ -29,7 +29,8 @@ import com.example.apptour.services.ProductCVS;
 import com.example.apptour.services.ProductService;
 
 //@CrossOrigin(origins = "http://localhost:4200")
-@CrossOrigin(origins = "https://607ded16c239870008a5e3f5--goofy-wing-f46d86.netlify.app")
+@CrossOrigin(origins = "*")
+//@CrossOrigin(origins = "https://607ded16c239870008a5e3f5--goofy-wing-f46d86.netlify.app")
 @RestController
 @RequestMapping("/api/v1/")
 
