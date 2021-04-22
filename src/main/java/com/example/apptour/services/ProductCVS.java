@@ -1,10 +1,9 @@
 package com.example.apptour.services;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,93 +14,85 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.example.apptour.models.Product;
 
+public class ProductCVS {
+	public static String TYPE = "text/csv";
+	static String[] HEADERs = { "Id", "Title", "Description", "Published" };
 
+	public static boolean hasCSVFormat(MultipartFile file) {
 
-public class ProductCVS { 
-  public static String TYPE = "text/csv";
-  static String[] HEADERs = { "Id", "Title", "Description", "Published" };
+		if (!TYPE.equals(file.getContentType())) {
+			return true;
+		}
 
-  public static boolean hasCSVFormat(MultipartFile file) {
+		return true;
+	}
 
-    if (!TYPE.equals(file.getContentType())) {
-      return true;//false 
-    }
+	public static List<Product> csvToTutorials(InputStream is) {
+		try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
+				CSVParser csvParser = new CSVParser(fileReader,
+						CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreHeaderCase().withTrim());) {
 
-    return true;
-  }
+			List<Product> products = new ArrayList<Product>();
 
-  public static List<Product> csvToTutorials(InputStream is) {
-    try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
-        CSVParser csvParser = new CSVParser(fileReader,
-            CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreHeaderCase().withTrim());) {
+			Iterable<CSVRecord> csvRecords = csvParser.getRecords();
+			
+			for (CSVRecord csvRecord : csvRecords) {
+				
 
-      List<Product> products = new ArrayList<Product>();
+				Product product = new Product();
 
-      Iterable<CSVRecord> csvRecords = csvParser.getRecords();
-      double precio = 0.0;
-      for (CSVRecord csvRecord : csvRecords) {
-    	  /*Product tutorial = new Product(
-              Long.parseLong(csvRecord.get("Id")),
-              csvRecord.get("Title"),
-              csvRecord.get("Description"),
-              Boolean.parseBoolean(csvRecord.get("Published"))
-            );*/
-    	  
-    	  Product product = new Product();
-    	  
-    	  //Hacer calculos
-    	 
-    	  product.setName(csvRecord.get("name"));    	  
-    	  product.setCost(Double.parseDouble(csvRecord.get("cost")));
-    	  product.setCount(Integer.parseInt(csvRecord.get("count")));
-    	  //product.setDate_start(Timestamp.valueOf(csvRecord.get("date_start")));
-    	  Double precioIva = Double.parseDouble(csvRecord.get("cost"))*0.19;    	  
-    	  //product.setPrize(Double.parseDouble(csvRecord.get("cost"))+precioIva);
-    	  product.setType(Integer.parseInt(csvRecord.get("type")));
-    	  
-    	  if(csvRecord.get("type").equals("1")) {
-    		  
-    		  //12%
-    		  Double comision = Double.parseDouble(csvRecord.get("cost"))*0.12; 
-    		  product.setPrize(Double.parseDouble(csvRecord.get("cost"))+precioIva+comision);
-    		  product.setGain(comision);
-    		  
-    	  }
-    	  if(csvRecord.get("type").equals("2")) {
-    		  
-    		  //30.5%
-    		  Double comision = Double.parseDouble(csvRecord.get("cost"))*0.30; 
-    		  product.setPrize(Double.parseDouble(csvRecord.get("cost"))+precioIva+comision);
-    		  product.setGain(comision);
-    		  
-    	  }
-    	  if(csvRecord.get("type").equals("3")) {
-    		  
-    		  //8.95%
-    		  Double comision = Double.parseDouble(csvRecord.get("cost"))*0.8; 
-    		  product.setPrize(Double.parseDouble(csvRecord.get("cost"))+precioIva+comision);
-    		  product.setGain(comision);
-	  
-    	  }
-    	  if(csvRecord.get("type").equals("4")) {
-    		  
-    		  //10.33%
-    		  Double comision = Double.parseDouble(csvRecord.get("cost"))*0.10; 
-    		  product.setPrize(Double.parseDouble(csvRecord.get("cost"))+precioIva+comision);
-    		  product.setGain(comision);
-	  
-    	  }
-    	  
-    	  product.setIva(precioIva);
-    	  product.setTotal(product.getPrize()*product.getCount());
+				// Make calculte
 
-    	  products.add(product);
-      }
+				product.setName(csvRecord.get("name"));
+				product.setCost(Double.parseDouble(csvRecord.get("cost")));
+				product.setCount(Integer.parseInt(csvRecord.get("count")));
+				// product.setDate_start(Timestamp.valueOf(csvRecord.get("date_start")));
+				Double precioIva = Double.parseDouble(csvRecord.get("cost")) * 0.19;				
+				product.setType(Integer.parseInt(csvRecord.get("type")));
 
-      return products;
-    } catch (IOException e) {
-      throw new RuntimeException("fail to parse CSV file: " + e.getMessage());
-    }
-  }
+				if (csvRecord.get("type").equals("1")) {
+
+					// 12%
+					Double comision = Double.parseDouble(csvRecord.get("cost")) * 0.12;
+					product.setPrize(Double.parseDouble(csvRecord.get("cost")) + precioIva + comision);
+					product.setGain(comision);
+
+				}
+				if (csvRecord.get("type").equals("2")) {
+
+					// 30.5%
+					Double comision = Double.parseDouble(csvRecord.get("cost")) * 0.30;
+					product.setPrize(Double.parseDouble(csvRecord.get("cost")) + precioIva + comision);
+					product.setGain(comision);
+
+				}
+				if (csvRecord.get("type").equals("3")) {
+
+					// 8.95%
+					Double comision = Double.parseDouble(csvRecord.get("cost")) * 0.8;
+					product.setPrize(Double.parseDouble(csvRecord.get("cost")) + precioIva + comision);
+					product.setGain(comision);
+
+				}
+				if (csvRecord.get("type").equals("4")) {
+
+					// 10.33%
+					Double comision = Double.parseDouble(csvRecord.get("cost")) * 0.10;
+					product.setPrize(Double.parseDouble(csvRecord.get("cost")) + precioIva + comision);
+					product.setGain(comision);
+
+				}
+
+				product.setIva(precioIva);
+				product.setTotal(product.getPrize() * product.getCount());
+
+				products.add(product);
+			}
+
+			return products;
+		} catch (IOException e) {
+			throw new RuntimeException("fail to parse CSV file: " + e.getMessage());
+		}
+	}
 
 }

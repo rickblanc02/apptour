@@ -33,7 +33,7 @@ public class Product {
 	private Double total;
 	
 	private Double gain;
-	
+		
 	private Double iva;
 	
 	private Integer type;

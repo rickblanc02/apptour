@@ -10,7 +10,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-
 public class TestWebApp extends ApptourApplicationTests {
 
 	@Autowired
@@ -23,18 +22,16 @@ public class TestWebApp extends ApptourApplicationTests {
 		mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
 	}
 
-	@Test //Only get products JPA
+	@Test // Only get products JPA
 	public void testgetProdutcs() throws Exception {
 		mockMvc.perform(get("/api/v1/products")).andExpect(status().isOk());
-				
 
 	}
-	
-	@Test //With pagination and default const
+
+	@Test // With pagination and default const
 	public void testgetProdutcsPage() throws Exception {
 		mockMvc.perform(get("/api/v1/products/p")).andExpect(status().isOk());
-				
+
 	}
-		
-		
+
 }

@@ -20,58 +20,55 @@ import com.example.apptour.repositories.ProductRepository;
 
 @Service
 public class ProductService {
-	
+
 	@Autowired
-	ProductRepository productRepository; 
-	
-	public ArrayList<Product> getProducts(){
+	ProductRepository productRepository;
+
+	public ArrayList<Product> getProducts() {
 		ArrayList<Product> products;
-		
-		products = (ArrayList<Product>) productRepository.findAll(); 
-				
+
+		products = (ArrayList<Product>) productRepository.findAll();
+
 		return products;
 	}
-	
+
 	public Product saveProduct(Product product) {
-		
+
 		product = productRepository.save(product);
-		
+
 		return product;
-				
+
 	}
-	
-	//Paginate y sorting
-	 public Map<String, Object> getProducts(Integer pageNo, Integer pageSize, String sortBy)
-	    {
-	        Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by(sortBy)); //ascending DESCENDING 
-	 
-	        
-	        Page<Product> pagedResult = productRepository.findAll(paging);
-	        
-	        Map<String, Object> data = new HashMap<>();
-	       
-	         
-	        if(pagedResult.hasContent()) {
-	        	 data.put("products", pagedResult.getContent());
-	 	        data.put("currentPage", pagedResult.getNumber());
-	 	        data.put("totalItems", pagedResult.getTotalElements());
-	 	        data.put("totalPages", pagedResult.getTotalPages());
-	 	      
-	 	      return data;
-	            
-	        } else {
-	            	        	
-	        	return data;
-	        }
-	    }
-	 
-	 public void saveCVS(MultipartFile file) {
-		    try {
-		      List<Product> productos = ProductCVS.csvToTutorials(file.getInputStream());
-		      productRepository.saveAll(productos);
-		    } catch (IOException e) {
-		      throw new RuntimeException("fail to store csv data: " + e.getMessage());
-		    }
-		  }
+
+	// Paginate y sorting
+	public Map<String, Object> getProducts(Integer pageNo, Integer pageSize, String sortBy) {
+		Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by(sortBy)); // ascending DESCENDING
+
+		Page<Product> pagedResult = productRepository.findAll(paging);
+
+		Map<String, Object> data = new HashMap<>();
+
+		if (pagedResult.hasContent()) {
+			data.put("products", pagedResult.getContent());
+			data.put("currentPage", pagedResult.getNumber());
+			data.put("totalItems", pagedResult.getTotalElements());
+			data.put("totalPages", pagedResult.getTotalPages());
+
+			return data;
+
+		} else {
+
+			return data;
+		}
+	}
+
+	public void saveCVS(MultipartFile file) {
+		try {
+			List<Product> productos = ProductCVS.csvToTutorials(file.getInputStream());
+			productRepository.saveAll(productos);
+		} catch (IOException e) {
+			throw new RuntimeException("fail to store csv data: " + e.getMessage());
+		}
+	}
 
 }
