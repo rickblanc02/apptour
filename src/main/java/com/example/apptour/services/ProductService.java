@@ -23,8 +23,6 @@ public class ProductService {
 	
 	@Autowired
 	ProductRepository productRepository; 
-	//@Autowired
-	//ProductPageSortRepository productPageSortRepository; 
 	
 	public ArrayList<Product> getProducts(){
 		ArrayList<Product> products;
@@ -42,33 +40,27 @@ public class ProductService {
 				
 	}
 	
-	//Paginado y sort //List<Product>
+	//Paginate y sorting
 	 public Map<String, Object> getProducts(Integer pageNo, Integer pageSize, String sortBy)
 	    {
 	        Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by(sortBy)); //ascending DESCENDING 
 	 
-	        //Page<Product> pagedResult = productPageSortRepository.findAll(paging);
+	        
 	        Page<Product> pagedResult = productRepository.findAll(paging);
 	        
 	        Map<String, Object> data = new HashMap<>();
 	       
-	        
-	        List<Object> list = new ArrayList<Object>(data.values());
 	         
 	        if(pagedResult.hasContent()) {
 	        	 data.put("products", pagedResult.getContent());
 	 	        data.put("currentPage", pagedResult.getNumber());
 	 	        data.put("totalItems", pagedResult.getTotalElements());
 	 	        data.put("totalPages", pagedResult.getTotalPages());
-	 	        
-	 	     //return new ResponseEntity<>(response, HttpStatus.OK);
-	 	       List<Object> res = new ArrayList<Object>(data.values());
 	 	      
 	 	      return data;
-	            //return pagedResult.getContent();
+	            
 	        } else {
-	            //return new ArrayList<Product>();
-	        	
+	            	        	
 	        	return data;
 	        }
 	    }
@@ -83,20 +75,3 @@ public class ProductService {
 		  }
 
 }
-
-//Paginado y sort //List<Product>
-/*
-	 public List<Product> getProducts(Integer pageNo, Integer pageSize, String sortBy)
-	    {
-	        Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by(sortBy)); //ascending DESCENDING 
-	 	       
-	        Page<Product> pagedResult = productRepository.findAll(paging);
-	        	         
-	        if(pagedResult.hasContent()) {
-	            return pagedResult.getContent();
-	        } else {
-	            return new ArrayList<Product>();
-	        		        	
-	        }
-	    }
-*/
