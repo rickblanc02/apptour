@@ -1,13 +1,21 @@
 package com.example.apptour;
 
-import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+//import org.junit.jupiter.api.Test;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.test.context.junit4.SpringRunner;
 
+@RunWith(SpringRunner.class)
 @SpringBootTest
-class ApptourApplicationTests {
+public class ApptourApplicationTests {
+	
 
 	@Test
-	void contextLoads() {
+	public void contextLoads() {
+	System.out.println("hola");
 	}
-
+	
+	
+	
 }
